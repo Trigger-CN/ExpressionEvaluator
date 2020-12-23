@@ -1,0 +1,7 @@
+﻿  ExpressionEvaluator.cpp
+D:\C\ExpressionEvaluator\ExpressionEvaluator\ExpressionEvaluator\StackHandler.h(10,2): warning C4091: “extern ”: 没有声明变量时忽略“TypeEnum”的左侧
+D:\C\ExpressionEvaluator\ExpressionEvaluator\ExpressionEvaluator\ExpressionEvaluator.cpp(44,35): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+  StackHandler.cpp
+D:\C\ExpressionEvaluator\ExpressionEvaluator\ExpressionEvaluator\StackHandler.h(10,2): warning C4091: “extern ”: 没有声明变量时忽略“TypeEnum”的左侧
+  正在生成代码...
+  ExpressionEvaluator.vcxproj -> D:\C\ExpressionEvaluator\ExpressionEvaluator\Debug\ExpressionEvaluator.exe
