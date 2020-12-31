@@ -3,6 +3,10 @@
 #include <stdio.h>
 #include <windows.h>
 
+#define EE_MEM_ALLOC(size)     MM_Alloc(size)
+#define EE_MEM_FREE(p)         MM_Free(p)
+#define EE_MEM_SET(p,val,size) MM_Set(p,val,size)
+
 StackElemNode* ExprToMidForm(const char* expr)
 {
     StackElemNode* stackTop = stackListInit();
@@ -11,10 +15,10 @@ StackElemNode* ExprToMidForm(const char* expr)
     bool wasChar = false;
     bool wasNum = false;
     bool hadDePoint = false;
-    char* str = (char*)MM_Alloc(sizeof(char)*100);
+    char* str = (char*)EE_MEM_ALLOC(sizeof(char)*100);
     if (str)
     {
-        MM_Set(str, 0, 100);
+        EE_MEM_SET(str, 0, 100);
         do
         {
             if (expr[index] >= '0' && expr[index] <= '9' || expr[index] == '.')
@@ -43,7 +47,7 @@ StackElemNode* ExprToMidForm(const char* expr)
                 {
                     float elemInt = atof(str);
                     Push(stackTop, Float, &elemInt, 0);
-                    MM_Set(str, 0, 100);
+                    EE_MEM_SET(str, 0, 100);
                     hadDePoint = false;
                     isFloat = false;
                 }
@@ -88,7 +92,7 @@ StackElemNode* ExprToMidForm(const char* expr)
         } while (expr[index - 1] != '\0');
     }
     StackScanRev(stackTop);
-    MM_Free(str);
+    EE_MEM_FREE(str);
     return stackTop;
 }
 
@@ -128,7 +132,7 @@ StackElemNode* MidToAfter(StackElemNode* midStackHead)
                 {
                     PushNode_Cut(resultStackTop, Pop(tempStackTop));
                 }
-                MM_Free(Pop(tempStackTop));
+                EE_MEM_FREE(Pop(tempStackTop));
             }
             else
             {
@@ -192,8 +196,8 @@ float Compute(StackElemNode* target)
                 tmp = tmp1->elemF / tmp2->elemF;
             }
             Push(computeStackTop, Float, &tmp, 0);
-            MM_Free(tmp1);
-            MM_Free(tmp2);
+            EE_MEM_FREE(tmp1);
+            EE_MEM_FREE(tmp2);
         }
         nowNode = nowNode->prev;
     }

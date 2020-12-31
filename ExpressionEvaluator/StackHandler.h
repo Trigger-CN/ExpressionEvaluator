@@ -1,6 +1,6 @@
 #ifndef _STACKHANDLER_H
 #define _STACKHANDLER_H
-#include <stdio.h>
+
 #include "MM.h"
 
 extern enum TypeEnum {

@@ -1,11 +1,30 @@
 #include "StackHandler.h"
 
+#define USE_DEBUG 1
+
+#if ( USE_DEBUG != 0 )
+#include <stdio.h>
+#define DEBUG_LOG(format, ...)\
+do{\
+    printf("File:%s Line:%d Function:%s >>", __FILE__, __LINE__, __FUNCTION__);\
+    printf(format, ##__VA_ARGS__);\
+    printf("\r\n");\
+    while(1);\
+}while(0)
+#else
+#define DEBUG_LOG(...)
+#endif
+
+#define STACK_MEM_ALLOC(size)     MM_Alloc(size)
+#define STACK_MEM_FREE(p)         MM_Free(p)
+#define STACK_MEM_SET(p,val,size) MM_Set(p,val,size)
+
 StackElemNode* stackListInit()
 {
-    StackElemNode* headNode = (StackElemNode*)MM_Alloc(sizeof(StackElemNode));
+    StackElemNode* headNode = (StackElemNode*)STACK_MEM_ALLOC(sizeof(StackElemNode));
     if (headNode)
     {
-        MM_Set(headNode, 0, sizeof(StackElemNode));
+        STACK_MEM_SET(headNode, 0, sizeof(StackElemNode));
     }
 
     return headNode;
@@ -14,7 +33,7 @@ StackElemNode* stackListInit()
 StackElemNode* Push(StackElemNode* headNode, int elemType, void* elem, int prio)
 {
 
-    StackElemNode* newNode = (StackElemNode*)MM_Alloc(sizeof(StackElemNode));
+    StackElemNode* newNode = (StackElemNode*)STACK_MEM_ALLOC(sizeof(StackElemNode));
     if (newNode)
     {
         newNode->type = elemType;
@@ -66,7 +85,7 @@ StackElemNode* Push(StackElemNode* headNode, int elemType, void* elem, int prio)
 StackElemNode* PushNode_Copy(StackElemNode* headNode, StackElemNode* targetNode)
 {
 
-    StackElemNode* newNode = (StackElemNode*)MM_Alloc(sizeof(StackElemNode));
+    StackElemNode* newNode = (StackElemNode*)STACK_MEM_ALLOC(sizeof(StackElemNode));
     if (newNode)
     {
         newNode->type = targetNode->type;
@@ -146,14 +165,14 @@ void FreeStack(StackElemNode* headNode)
     {
         if (nowNode->prev)
         {
-            MM_Free(nowNode->prev);
+            STACK_MEM_FREE(nowNode->prev);
             nowNode->prev = NULL;
         }
         if (nowNode->next)
             nowNode = nowNode->next;
         else
         {
-            MM_Free(nowNode);
+            STACK_MEM_FREE(nowNode);
             return;
         }
 
