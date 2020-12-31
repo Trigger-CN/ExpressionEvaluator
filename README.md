@@ -5,9 +5,16 @@
  
  计算器应用程序是Release文件夹中的ExpressionEvaluator.exe，可手动输入表达式，回车进行计算，可一次性输入多个以空格分隔开的表达式，计算器会依此计算。
  
+ 2020.12.31现已加入一个用LVGL的windows模拟器实现的计算器，并在代码中加入Debug功能
+ 
  ## 示例
  
+ 用LVGL的windows模拟器实现的计算器
+ 
 ![IMG_20200928_213432](https://github.com/Trigger-CN/ExpressionEvaluator/blob/main/image/test3.png)
+
+ windows控制台实现的计算器
+
 ![IMG_20200928_213431](https://github.com/Trigger-CN/ExpressionEvaluator/blob/main/image/test2.png)
 
 ```c
